@@ -14,4 +14,4 @@
 
 1 - ``` nodemon app.js ```
 
-2 - To Enter Data ``` http://localhost:5000/search ``` 
+2 - ``` http://localhost:5000/search ``` 
