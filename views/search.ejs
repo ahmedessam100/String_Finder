@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body{background:skyblue; font-family: verdana; color: #fff; padding: 30px;}
+        h1{font-size: 48px; text-transform: uppercase; letter-spacing: 2px; text-align: center;}
+        p{font-size: 40px; color: ; text-align: center;}
+        form{width: 400px; max-width: 100%; padding: 20px; margin: 20px auto;}
+        input, label{display: block; margin: 10px 0; padding: 4px; width: 100%; 
+        font-family: 'Raleway', 'Lato', Arial, sans-serif; font-size: 20px;}
+        input[type='submit']{width: 103%; }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script>
+    $(document).ready(function(){
+        var name, string;
+        // If the form is submitted
+        $("#submit").click(function(event){
+            event.preventDefault();
+            name = $("#Name").val();
+            string = $("#String").val();
+            // POST request
+            $.post("/search",{Name: name, String: string}, function(data){
+                    result = data;
+                    // GET request
+                    $.get('/search');
+
+                    if(result === '0'){
+                        document.getElementById("status").innerHTML = "File not found!";
+                    }
+                    else if(result === '1'){
+                        document.getElementById("status").innerHTML = "String is found!";
+                    }
+                    else if(result === '2'){
+                        document.getElementById("status").innerHTML = "String is not found!";
+                    }
+                    else if(result === '3'){
+                        document.getElementById("status").innerHTML = "Data incomplete!";
+                    }
+            });
+        });
+      });
+    </script>
+</head>
+<body>
+    <h1>File string search</h1>
+    <form id='form'>    
+        <label >File Name :</label>
+        <input type="text" id="Name" name="Name" placeholder="File Name"/>
+        <label >Search String :</label>
+        <input type="text" id="String" name="String" placeholder="String"/>
+        <input type="submit" id='submit'/>
+    </form>
+    <p id="status"></p>
+</body>
+</html>
